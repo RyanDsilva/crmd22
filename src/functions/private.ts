@@ -1,4 +1,4 @@
-const calc = (score: { speaker1: any; speaker2: any; }) => {
+const calc = (score: { speaker1: any; speaker2: any }) => {
   const speaker1 = score.speaker1;
   const s1j1 = speaker1.judge1;
   const s1j2 = speaker1.judge2;

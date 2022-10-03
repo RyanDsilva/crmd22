@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SubmitScores from '../views/SubmitScores.vue'
 import ResultsScreen from '../views/Results.vue'
 import Login from '../views/Login.vue'
+import { scoreStore } from '@/stores/scores'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,8 +32,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const store = scoreStore()
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-  const currentUser = true;
+  const currentUser = store.currentUser;
 
   if (requiresAuth && !currentUser) {
     next('/login');
