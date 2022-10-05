@@ -9,11 +9,11 @@ interface Score {
   oscore: number;
 }
 interface ScoreAdj {
+  dnum: number;
   adj: string;
   prop: string;
   opp: string;
-  pscore: number;
-  oscore: number;
+  score: number;
 }
 
 export const scoreStore = defineStore("scores", {
@@ -58,7 +58,7 @@ auth.onAuthStateChanged((user) => {
       });
       store.setScores(scoresList);
     });
-    scoresAdj.orderBy("adj", "desc").onSnapshot((doc) => {
+    scoresAdj.orderBy("dnum", "desc").onSnapshot((doc) => {
       let scoresList: any[] = [];
       doc.forEach((d) => {
         let score = d.data();

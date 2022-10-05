@@ -532,7 +532,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import calc from "../functions/private";
+import { calc } from "../functions/private";
 import { scoreStore } from "@/stores/scores";
 import { mapState } from "pinia";
 import { scores as db } from "../firebase";

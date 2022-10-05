@@ -31,20 +31,20 @@
         <v-table class="p-4" fixed-header>
           <thead>
             <tr>
+              <th>Debate No.</th>
               <th>Adjudicator Code</th>
               <th>Proposition</th>
-              <th>PScore</th>
               <th>Opposition</th>
-              <th>OScore</th>
+              <th>Score</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="x in scoresAdj" :key="x.adj">
+            <tr v-for="x in scoresAdj" :key="x.dnum">
+              <td class="text-xs-center">{{ x.dnum }}</td>
               <td class="text-xs-center">{{ x.adj }}</td>
               <td class="text-xs-center">{{ x.prop }}</td>
-              <td class="text-xs-center">{{ x.pscore }}</td>
               <td class="text-xs-center">{{ x.opp }}</td>
-              <td class="text-xs-center">{{ x.oscore }}</td>
+              <td class="text-xs-center">{{ x.score }}</td>
             </tr>
           </tbody>
         </v-table>
@@ -75,7 +75,7 @@ export default defineComponent({
           store.setScores(_scoresList)
         });
       dbA
-        .orderBy('adj', 'asc')
+        .orderBy('dnum', 'desc')
         .onSnapshot((doc) => {
           let _scoresList: any[] = [];
           doc.forEach(d => {

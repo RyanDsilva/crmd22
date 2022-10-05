@@ -56,4 +56,17 @@ const calc = (score: { speaker1: any; speaker2: any }) => {
   return ((s1 + s2) / 2).toFixed(4);
 };
 
-export default calc;
+const calcAdj = (scoreProp: any, scoreOpp: any) => {
+  const a =
+    parseFloat(scoreProp.f1) * 0.33 +
+    parseFloat(scoreProp.f2) * 0.33 +
+    parseFloat(scoreProp.f3) * 0.34;
+  const b =
+  parseFloat(scoreOpp.f1) * 0.33 +
+  parseFloat(scoreOpp.f2) * 0.33 +
+  parseFloat(scoreOpp.f3) * 0.34;
+
+  return ((a + b ) / 2).toFixed(4);
+};
+
+export { calc, calcAdj };
