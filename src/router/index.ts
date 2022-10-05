@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SubmitScores from '../views/SubmitScores.vue'
+import SubmitScoresAdj from '../views/SubmitScoresAdj.vue'
 import ResultsScreen from '../views/Results.vue'
 import Login from '../views/Login.vue'
 import { scoreStore } from '@/stores/scores'
@@ -9,8 +10,21 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'login',
+      component: Login,
+    },
+    {
+      path: '/judge',
       name: 'submit',
       component: SubmitScores,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/adj',
+      name: 'submitAdj',
+      component: SubmitScoresAdj,
       meta: {
         requiresAuth: true,
       },
@@ -23,11 +37,6 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-    },
   ]
 })
 
@@ -37,7 +46,7 @@ router.beforeEach((to, from, next) => {
   const currentUser = store.currentUser;
 
   if (requiresAuth && !currentUser) {
-    next('/login');
+    next('/');
   } else if (requiresAuth && currentUser) {
     next();
   } else {

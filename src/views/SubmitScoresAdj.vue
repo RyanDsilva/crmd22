@@ -1,9 +1,9 @@
 <template>
   <div class="main-form">
-    <h6 class="text-h6">Judges Scores</h6>
+    <h6 class="text-h6">Adjudicator Scores</h6>
     <br>
     <v-form ref="scoreForm" v-model="valid" lazy-validation>
-      <v-text-field v-model="dnum" :rules="dNumRules" label="Debate Number" required></v-text-field>
+      <v-text-field v-model="adj" :rules="adjRules" label="Adjudicator Code" required></v-text-field>
       <v-tabs v-model="tab" background-color="primary">
         <v-tab value="prop">Proposition</v-tab>
         <v-tab value="opp">Opposition</v-tab>
@@ -93,8 +93,8 @@
                 label="Analysis" required></v-text-field>
               <v-text-field type="number" v-model="pScoreObj.speaker2.judge2.f6" :counter="1" :rules="scoreRules"
                 label="Rapport established with Partner" required></v-text-field>
-              <h6 class="text-h6">Judge 3</h6>
-              <!-- <br>
+              <!-- <h6 class="text-h6">Judge 3</h6>
+              <br>
               <v-text-field type="number" v-model="pScoreObj.speaker2.judge3.f1" :counter="1" :rules="scoreRules"
                 label="Confidence" required></v-text-field>
               <v-text-field type="number" v-model="pScoreObj.speaker2.judge3.f2" :counter="1" :rules="scoreRules"
@@ -225,16 +225,16 @@ import { defineComponent, ref } from 'vue';
 import calc from '../functions/private';
 import { scoreStore } from '@/stores/scores'
 import { mapState } from 'pinia'
-import { scores as db } from '../firebase';
+import { scoresAdj as db } from '../firebase';
 
 export default defineComponent({
-  name: 'submit_scores',
+  name: 'submit_scores_adj',
   data: () => ({
     valid: true,
     tab: null,
     propSpeaker: null,
     oppSpeaker: null,
-    dnum: '',
+    adj: '',
     prop: '',
     opp: '',
     pscore: '',
@@ -359,6 +359,10 @@ export default defineComponent({
       (v: any) => !!v || 'Debate Number is required',
       (v: any) => (v && v.length <= 3) || 'Enter Valid Debate Number!',
     ],
+    adjRules: [
+      (v: any) => !!v || 'Adjudicator Code is required',
+      (v: any) => (v && v.length === 5) || 'Enter Valid Adjudicator Code!',
+    ],
   }),
   computed: {
     ...mapState(scoreStore, ['currentUser', 'scores'])
@@ -367,7 +371,7 @@ export default defineComponent({
     submit() {
       this.calculate();
       db.add({
-        dnum: this.dnum,
+        adj: this.adj,
         prop: this.prop,
         opp: this.opp,
         pscore: this.pscore,

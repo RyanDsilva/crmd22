@@ -42,7 +42,7 @@ export default defineComponent({
         .signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
           this.setLogin(user)
-          this.$router.push('/');
+          this.$router.push('/judge');
         })
         .catch(err => {
           console.log(err);

@@ -19,5 +19,6 @@ const auth = firebase.auth();
 const currentUser = auth.currentUser;
 
 const scores = db.collection('scores');
+const scoresAdj = db.collection('scores_adj');
 
-export { db, auth, currentUser, scores };
+export { db, auth, currentUser, scores, scoresAdj };
